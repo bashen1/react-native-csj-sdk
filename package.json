@@ -1,0 +1,31 @@
+{
+  "name": "react-native-csj-sdk",
+  "version": "0.0.1",
+  "description": "穿山甲广告SDK",
+  "main": "src/index.tsx",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "react-native",
+    "ios",
+    "android",
+    "穿山甲",
+    "广告",
+    "ad"
+  ],
+  "repository": "https://github.com/bashen1/react-native-csj-sdk.git",
+  "author": "bashen1 <maochunjie@gmail.com> (https://github.com/bashen1)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/bashen1/react-native-csj-sdk.git/issues"
+  },
+  "homepage": "https://github.com/bashen1/react-native-csj-sdk.git#readme",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "peerDependencies": {
+    "react": "*",
+    "react-native": "*"
+  }
+}
