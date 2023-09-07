@@ -18,40 +18,46 @@ object SplashAd {
    */
   fun show(activity: Activity?, resourceId: Int, splashView: View) {
     if (activity == null) return
-    mActivity = WeakReference<Activity>(activity)
-    activity.runOnUiThread(Runnable {
-      if (!activity.isFinishing) {
-        mSplashDialog = Dialog(activity, resourceId)
-        mSplashDialog!!.setContentView(splashView)
-        mSplashDialog!!.setCancelable(false)
-        if (!mSplashDialog!!.isShowing) {
-          mSplashDialog!!.show()
+    try {
+      mActivity = WeakReference<Activity>(activity)
+      activity.runOnUiThread(Runnable {
+        if (!activity.isFinishing) {
+          mSplashDialog = Dialog(activity, resourceId)
+          mSplashDialog!!.setContentView(splashView)
+          mSplashDialog!!.setCancelable(false)
+          if (!mSplashDialog!!.isShowing) {
+            mSplashDialog!!.show()
+          }
         }
-      }
-    })
+      })
+    } catch (_: Exception) {
+    }
   }
 
   fun hide(activity: Activity?) {
-    var tempActivity = activity
-    if (activity == null) {
-      if (mActivity == null) {
-        return
-      }
-      tempActivity = mActivity!!.get()
-    }
-    if (tempActivity == null) return
-    val activityRes: Activity = tempActivity
-    activityRes.runOnUiThread {
-      if (mSplashDialog != null && mSplashDialog!!.isShowing) {
-        var isDestroyed = false
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-          isDestroyed = activityRes.isDestroyed
+    try {
+      var tempActivity = activity
+      if (activity == null) {
+        if (mActivity == null) {
+          return
         }
-        if (!activityRes.isFinishing && !isDestroyed) {
-          mSplashDialog!!.dismiss()
-        }
-        mSplashDialog = null
+        tempActivity = mActivity!!.get()
       }
+      if (tempActivity == null) return
+      val activityRes: Activity = tempActivity
+      activityRes.runOnUiThread {
+        if (mSplashDialog != null && mSplashDialog!!.isShowing) {
+          var isDestroyed = false
+          if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            isDestroyed = activityRes.isDestroyed
+          }
+          if (!activityRes.isFinishing && !isDestroyed) {
+            mSplashDialog!!.dismiss()
+          }
+          mSplashDialog = null
+        }
+      }
+    } catch (_: Exception) {
     }
   }
 
