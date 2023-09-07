@@ -108,7 +108,7 @@ RCT_EXPORT_METHOD(loadSplashAd:(NSDictionary *)param resolve:(RCTPromiseResolveB
 - (void)splashAdLoadSuccess:(nonnull BUSplashAd *)splashAd {
     // 使用应用keyWindow的rootViewController（接入简单，推荐）
     [splashAd showSplashViewInRootViewController:[UIApplication sharedApplication].keyWindow.rootViewController];
-    [self sendEventWithName:@"SplashAd-onAdLoadSuccess" body:@""];
+    [self sendEventWithName:@"SplashAd-onAdLoadSuccess" body:@{ @"message": @"" }];
 }
 
 - (void)splashAdRenderFail:(nonnull BUSplashAd *)splashAd error:(BUAdError *_Nullable)error {
