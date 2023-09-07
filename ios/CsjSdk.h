@@ -1,5 +1,7 @@
 #import <React/RCTBridgeModule.h>
+#import <React/RCTEventEmitter.h>
+#import <BUAdSDK/BUAdSDK.h>
 
-@interface CsjSdk : NSObject <RCTBridgeModule>
+@interface CsjSdk : RCTEventEmitter <RCTBridgeModule, BUMSplashAdDelegate>
 
 @end
