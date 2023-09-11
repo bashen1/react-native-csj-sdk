@@ -8,7 +8,8 @@ export type EventName =
   | 'SplashAd-onAdClose'
   | 'SplashAd-onAdShow'
   | 'SplashAd-onAdLoadFail'
-  | 'SplashAd-onAdLoadSuccess';
+  | 'SplashAd-onAdLoadSuccess'
+  | 'SplashAd-onRenderFail';
 
 const eventEmitter = new NativeEventEmitter(CsjSdk);
 

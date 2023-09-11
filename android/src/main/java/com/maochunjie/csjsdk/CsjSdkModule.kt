@@ -74,16 +74,16 @@ class CsjSdkModule(reactContext: ReactApplicationContext) :
 
           override fun onSplashLoadSuccess() {
             // 加载成功
-            fireSplashAdEvent("onAdLoadSuccess", "")
+            fireSplashAdEvent("onAdLoadSuccess", "", "")
           }
 
           override fun onSplashLoadFail(csjAdError: CSJAdError) {
             // 加载失败
-            fireSplashAdEvent("onAdLoadFail", csjAdError.msg)
+            fireSplashAdEvent("onAdLoadFail", csjAdError.msg, csjAdError.code.toString())
           }
 
           override fun onSplashRenderFail(csjSplashAd: CSJSplashAd, csjAdError: CSJAdError) {
-
+            fireSplashAdEvent("onRenderFail", csjAdError.msg, csjAdError.code.toString())
           }
         }, timeout
       )
@@ -95,26 +95,30 @@ class CsjSdkModule(reactContext: ReactApplicationContext) :
   fun showSplashAd(csjSplashAd: CSJSplashAd) {
     csjSplashAd.setSplashAdListener(object : CSJSplashAd.SplashAdListener {
       override fun onSplashAdShow(csjSplashAd: CSJSplashAd) {
-        fireSplashAdEvent("onAdShow", "")
+        fireSplashAdEvent("onAdShow", "", "")
       }
 
       override fun onSplashAdClick(csjSplashAd: CSJSplashAd) {
-        fireSplashAdEvent("onAdClick", "")
+        SplashAd.hide(currentActivity)
+        fireSplashAdEvent("onAdClick", "", "")
       }
 
       override fun onSplashAdClose(csjSplashAd: CSJSplashAd, i: Int) {
         // 广告关闭后，销毁广告页面
         SplashAd.hide(currentActivity)
-        fireSplashAdEvent("onAdClose", "")
+        fireSplashAdEvent("onAdClose", "", "")
       }
     })
     val splashView = csjSplashAd.splashView
     SplashAd.show(currentActivity, R.id.splash_container, splashView)
   }
 
-  fun fireSplashAdEvent(eventName: String, message: String) {
+  fun fireSplashAdEvent(eventName: String, message: String, code: String) {
     val map = Arguments.createMap()
     map.putString("message", message)
+    if (code != "") {
+      map.putString("code", code)
+    }
     fireEvent("SplashAd-$eventName", map)
   }
 

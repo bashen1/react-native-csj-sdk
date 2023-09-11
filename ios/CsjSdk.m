@@ -21,7 +21,8 @@ RCT_EXPORT_MODULE()
         @"SplashAd-onAdClose",
         @"SplashAd-onAdShow",
         @"SplashAd-onAdLoadFail",
-        @"SplashAd-onAdLoadSuccess"
+        @"SplashAd-onAdLoadSuccess",
+        @"SplashAd-onRenderFail"
     ];
 }
 
@@ -102,7 +103,7 @@ RCT_EXPORT_METHOD(loadSplashAd:(NSDictionary *)param resolve:(RCTPromiseResolveB
 }
 
 - (void)splashAdLoadFail:(nonnull BUSplashAd *)splashAd error:(BUAdError *_Nullable)error {
-    [self sendEventWithName:@"SplashAd-onAdLoadFail" body:@{ @"message": [NSString stringWithFormat:@"%@", error] }];
+    [self sendEventWithName:@"SplashAd-onAdLoadFail" body:@{ @"code": [NSString stringWithFormat:@"%ld", (long)error.code], @"message": [NSString stringWithFormat:@"%@", error.domain] }];
 }
 
 - (void)splashAdLoadSuccess:(nonnull BUSplashAd *)splashAd {
@@ -112,6 +113,7 @@ RCT_EXPORT_METHOD(loadSplashAd:(NSDictionary *)param resolve:(RCTPromiseResolveB
 }
 
 - (void)splashAdRenderFail:(nonnull BUSplashAd *)splashAd error:(BUAdError *_Nullable)error {
+    [self sendEventWithName:@"SplashAd-onRenderFail" body:@{ @"code": [NSString stringWithFormat:@"%ld", (long)error.code], @"message": [NSString stringWithFormat:@"%@", error.domain] }];
 }
 
 - (void)splashAdRenderSuccess:(nonnull BUSplashAd *)splashAd {
