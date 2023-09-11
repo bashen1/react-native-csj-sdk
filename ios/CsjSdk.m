@@ -71,6 +71,10 @@ RCT_EXPORT_METHOD(loadSplashAd:(NSDictionary *)param resolve:(RCTPromiseResolveB
         slot.ID = codeId;
         BUSplashAd *splashAd = [[BUSplashAd alloc] initWithSlot:slot adSize:CGSizeZero];
         splashAd.delegate = self;
+        if (param[@"timeout"] != nil) {
+            float tolerateTimeout = [[param objectForKey:@"timeout"]floatValue];
+            splashAd.tolerateTimeout = tolerateTimeout / 1000;
+        }
         self->splashAd = splashAd;
 
         [self->splashAd loadAdData];

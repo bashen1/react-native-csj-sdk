@@ -61,7 +61,7 @@ let ret = await CsjSdk.loadSplashAd({
     codeId: 'XXXX', //广告ID，GroMore
     width: width, //广告宽度，仅Android有效
     height: height, //广告高度，仅Android有效
-    timeout: 1500, //获取广告超时，仅Android有效
+    timeout: 1500, //获取广告超时
 });
 
 // 添加监听
@@ -70,6 +70,7 @@ let ret = await CsjSdk.loadSplashAd({
 // SplashAd-onAdShow 广告显示
 // SplashAd-onAdLoadFail 加载广告配置失败
 // SplashAd-onAdLoadSuccess 加载广告配置成功
+// SplashAd-onRenderFail 广告渲染失败
 const listener = CsjSdk.addListener('SplashAd-onAdClose', e => {
     console.log('SplashAd-onAdClose');
 });
