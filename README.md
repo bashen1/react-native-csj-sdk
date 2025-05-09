@@ -4,7 +4,7 @@
 
 穿山甲广告SDK，目前只有开屏广告功能
 
-Android SDK Version: 5.5.1.5
+Android SDK Version: 6.4.1.5
 
 iOS SDK Version: 5.3.6.1
 
