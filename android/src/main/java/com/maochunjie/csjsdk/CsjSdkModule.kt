@@ -5,7 +5,6 @@ import com.bytedance.sdk.openadsdk.CSJSplashAd
 import com.bytedance.sdk.openadsdk.TTAdConfig
 import com.bytedance.sdk.openadsdk.TTAdNative
 import com.bytedance.sdk.openadsdk.TTAdSdk
-import com.bytedance.sdk.openadsdk.TTAdSdk.InitCallback
 import com.facebook.react.bridge.Arguments
 import com.facebook.react.bridge.Promise
 import com.facebook.react.bridge.ReactApplicationContext
@@ -31,7 +30,9 @@ class CsjSdkModule(reactContext: ReactApplicationContext) :
     if (appId != "") {
       TTAdSdk.init(reactApplicationContext, TTAdConfig.Builder().appId(appId) //APP ID
         .useMediation(true) //开启聚合功能
-        .build(), object : InitCallback {
+        .build()
+      )
+      TTAdSdk.start(object : TTAdSdk.Callback {
         override fun success() {
           map.putString("message", "")
           map.putString("code", "1")
@@ -72,7 +73,7 @@ class CsjSdkModule(reactContext: ReactApplicationContext) :
             showSplashAd(csjSplashAd)
           }
 
-          override fun onSplashLoadSuccess() {
+          override fun onSplashLoadSuccess(p0: CSJSplashAd?) {
             // 加载成功
             fireSplashAdEvent("onAdLoadSuccess", "", "")
           }
